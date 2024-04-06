@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwitchCamera : MonoBehaviour
 {
-    [Header("Camera to Assisgn")]
+    [Header("Camera to Assign")]
     public GameObject AimCam;
     public GameObject AimCanvas;
     public GameObject ThirdPersonCam;

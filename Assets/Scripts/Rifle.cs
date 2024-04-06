@@ -5,7 +5,7 @@ using UnityEngine;
 public class Rifle : MonoBehaviour
 {
    [Header("Rifle Things")]
-   public Camera camera;
+   public Camera came;
    public float giveDamageOf = 10f;
    public float shootingRange = 100f;
    public float fireCharge = 15f;
@@ -24,6 +24,7 @@ public class Rifle : MonoBehaviour
    [Header("Rifle Effects")]
    public ParticleSystem muzzleSpark;
    public GameObject imapactEffect;
+    public GameObject goreEffect;
 
    //[Header("Sounds and UI")]
 
@@ -95,19 +96,24 @@ public class Rifle : MonoBehaviour
 
         muzzleSpark.Play();
         RaycastHit hitinfo;
-        if(Physics.Raycast(camera.transform.position, camera.transform.forward, out hitinfo, shootingRange))
+        if(Physics.Raycast(came.transform.position, came.transform.forward, out hitinfo, shootingRange))
         {
             Debug.Log(hitinfo.transform.name);
 
             Objects objects = hitinfo.transform.GetComponent<Objects>();
-
+            Enemy enemy = hitinfo.transform.GetComponent<Enemy>();
             if(objects != null)
             {
                 objects.objectHitDamage(giveDamageOf);
-                
+                GameObject impactGO = Instantiate(imapactEffect, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
+                Destroy(impactGO, 1f);
             }
-            GameObject impactGO = Instantiate(imapactEffect, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
-            Destroy(impactGO, 1f);
+            else if (enemy != null)
+            {
+                enemy.enemyHitDamage(giveDamageOf);
+                GameObject impactGO = Instantiate(goreEffect, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
+                Destroy(impactGO, 2f);
+            }
 
 
         }
