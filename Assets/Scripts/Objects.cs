@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Objects : MonoBehaviour
 {
-    public float objectHealth = 100f;
+    public float objectHealth = 120f;
 
     public void objectHitDamage(float amount)
     {
         objectHealth -= amount;
         if(objectHealth <= 0f)
         {
-            //destroy
+            //destroy the gameobject
             Die();
         }
     }
