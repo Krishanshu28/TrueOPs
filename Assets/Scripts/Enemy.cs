@@ -62,11 +62,11 @@ public class Enemy : MonoBehaviour
 
     private void Guard()
     {
-        //print(Vector3.Distance(walkPoints[curentEnemyPosition].transform.position, transform.position));
+        
 
         if (Vector3.Distance(walkPoints[curentEnemyPosition].transform.position, transform.position) < walkingPointRadius)
         {
-
+            //to check points
             print("guard");
             //print(walkPoints[curentEnemyPosition]);
             curentEnemyPosition = Random.Range(0, walkPoints.Length);
