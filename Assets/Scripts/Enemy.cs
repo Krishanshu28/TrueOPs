@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Enemy Animation and Spark effect")]
     public Animator anim;
+    public ParticleSystem muzzleSpark;
 
     [Header("Enemy mood/situation")]
     public float visionRadius;
@@ -67,14 +68,14 @@ public class Enemy : MonoBehaviour
         if (Vector3.Distance(walkPoints[curentEnemyPosition].transform.position, transform.position) < walkingPointRadius)
         {
             
-            print("guard");
+            //print("guard");
             //print(walkPoints[curentEnemyPosition]);
             curentEnemyPosition = Random.Range(0, walkPoints.Length);
             if(curentEnemyPosition >= walkPoints.Length)
             {
                 curentEnemyPosition = 0;
             }
-            print(walkPoints[curentEnemyPosition]);
+            //print(walkPoints[curentEnemyPosition]);
             
            
         }
@@ -117,6 +118,7 @@ public class Enemy : MonoBehaviour
 
         if(!previouslyShoot)
         {
+            muzzleSpark.Play();
             RaycastHit hit;
             if(Physics.Raycast(ShootingRaycastArea.transform.position, ShootingRaycastArea.transform.forward, out hit, shootingRadius))
             {
