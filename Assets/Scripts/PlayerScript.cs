@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour
 
 
     [Header("Player Health Things")]
-    private float playerHealth = 120f;
+    private float playerHealth = 700f;
     private float presentHealth;
 
 
