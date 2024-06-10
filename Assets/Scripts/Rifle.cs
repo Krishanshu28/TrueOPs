@@ -24,11 +24,12 @@ public class Rifle : MonoBehaviour
    [Header("Rifle Effects")]
    public ParticleSystem muzzleSpark;
    public GameObject imapactEffect;
+   public GameObject droneEffect;
     public GameObject goreEffect;
 
-   //[Header("Sounds and UI")]
+    //[Header("Sounds and UI")]
 
-   private void Awake() 
+    private void Awake() 
    {
         presentAmmunition = maximumAmmunition;
    }
@@ -100,8 +101,9 @@ public class Rifle : MonoBehaviour
         {
             Debug.Log(hitinfo.transform.name);
 
-            Objects objects = hitinfo.transform.GetComponent<Objects>();
+            Objects objects = hitinfo.transform.GetComponent<Objects>();  
             Enemy enemy = hitinfo.transform.GetComponent<Enemy>();
+            EnemyDrone enemyDrone = hitinfo.transform.GetComponent<EnemyDrone>();
             if(objects != null)
             {
                 objects.objectHitDamage(giveDamageOf);
@@ -114,7 +116,12 @@ public class Rifle : MonoBehaviour
                 GameObject impactGO = Instantiate(goreEffect, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
                 Destroy(impactGO, 2f);
             }
-
+            else if(enemyDrone != null)
+            {
+                enemyDrone.enemyDroneHitDamage(giveDamageOf);
+                GameObject impactGO = Instantiate(droneEffect, hitinfo.point, Quaternion.LookRotation(hitinfo.normal));
+                Destroy(impactGO, 2f);
+            }
 
         }
     }

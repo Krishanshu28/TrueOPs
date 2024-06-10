@@ -8,7 +8,7 @@ public class EnemyDrone : MonoBehaviour
     [Header("Enemy Drone Health and Damage")]
     private float enemyHealth = 150f;
     private float presentHealth;
-    private float giveDamage = 5f;
+    private float giveDamage = 3f;
 
 
     [Header("Enemy Drone things")]
@@ -32,7 +32,9 @@ public class EnemyDrone : MonoBehaviour
 
     [Header("Enemy Drone Animation and Spark effect")]
     public Animator anim;
-    //public ParticleSystem muzzleSpark;
+    public ParticleSystem muzzleSpark; 
+    public ParticleSystem muzzleFlame;
+
 
     [Header("Enemy Drone mood/situation")]
     public float visionRadius;
@@ -89,11 +91,11 @@ public class EnemyDrone : MonoBehaviour
         if (enemyAgent.SetDestination(playerBody.position))
         {
             //animations
-            /*anim.SetBool("Walk", false);
+            anim.SetBool("Walk", false);
             anim.SetBool("AimRun", true);
             anim.SetBool("Shoot", false);
 
-            anim.SetBool("Die", false); */
+            anim.SetBool("Die", false); 
 
             //++ shoting and vision radius
             visionRadius = 30;
@@ -101,11 +103,11 @@ public class EnemyDrone : MonoBehaviour
         }
         else
         {
-            /*anim.SetBool("Walk", false);
+            anim.SetBool("Walk", false);
             anim.SetBool("AimRun", false);
             anim.SetBool("Shoot", false);
 
-            anim.SetBool("Die", true); */
+            anim.SetBool("Die", true); 
         }
 
     }
@@ -118,7 +120,8 @@ public class EnemyDrone : MonoBehaviour
 
         if (!previouslyShoot)
         {
-            //muzzleSpark.Play();
+            muzzleSpark.Play();
+            muzzleFlame.Play();
             RaycastHit hit;
             if (Physics.Raycast(ShootingRaycastArea.transform.position, ShootingRaycastArea.transform.forward, out hit, shootingRadius))
             {
@@ -130,11 +133,11 @@ public class EnemyDrone : MonoBehaviour
                 {
                     playerBody.playerHitDamage(giveDamage);
                 }
-                /*anim.SetBool("Shoot", true);
+                anim.SetBool("Shoot", true);
                 anim.SetBool("Walk", false);
                 anim.SetBool("AimRun", false);
 
-                anim.SetBool("Die", false);*/
+                anim.SetBool("Die", false);
 
             }
             previouslyShoot = true;
@@ -147,16 +150,16 @@ public class EnemyDrone : MonoBehaviour
         previouslyShoot = false;
     }
 
-    public void enemyHitDamage(float takeDamage)
+    public void enemyDroneHitDamage(float takeDamage)
     {
         presentHealth -= takeDamage;
 
         if (presentHealth <= 0)
         {
-            /*anim.SetBool("Walk", false);
+            anim.SetBool("Walk", false);
             anim.SetBool("AimRun", false);
             anim.SetBool("Shoot", false);
-            anim.SetBool("Die", true);*/
+            anim.SetBool("Die", true);
             EnemyDie();
         }
     }
