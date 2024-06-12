@@ -34,6 +34,7 @@ public class EnemyDrone : MonoBehaviour
     public Animator anim;
     public ParticleSystem muzzleSpark; 
     public ParticleSystem muzzleFlame;
+    public ParticleSystem DestroyEffect;
 
 
     [Header("Enemy Drone mood/situation")]
@@ -70,7 +71,7 @@ public class EnemyDrone : MonoBehaviour
         if (Vector3.Distance(walkPoints[curentEnemyPosition].transform.position, transform.position) < walkingPointRadius)
         {
 
-            //print("guard");
+            
             //print(walkPoints[curentEnemyPosition]);
             curentEnemyPosition = Random.Range(0, walkPoints.Length);
             if (curentEnemyPosition >= walkPoints.Length)
@@ -125,7 +126,7 @@ public class EnemyDrone : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ShootingRaycastArea.transform.position, ShootingRaycastArea.transform.forward, out hit, shootingRadius))
             {
-                Debug.Log("Shooting" + hit.transform.name);
+                //Debug.Log("Shooting" + hit.transform.name);
 
                 PlayerScript playerBody = hit.transform.GetComponent<PlayerScript>();
 
@@ -166,12 +167,13 @@ public class EnemyDrone : MonoBehaviour
 
     private void EnemyDie()
     {
+        DestroyEffect.Play();
         enemyAgent.SetDestination(transform.position);
         enemySpeed = 0f;
         shootingRadius = 0f;
         visionRadius = 0f;
         playerInshootRadius = false;
         playerInvisionRadius = false;
-        Object.Destroy(gameObject, 5.0f);
+        Object.Destroy(gameObject, 2.0f);
     }
 }

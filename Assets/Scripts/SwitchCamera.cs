@@ -38,6 +38,7 @@ public class SwitchCamera : MonoBehaviour
             animator.SetBool("Walk", false);
 
 
+
             ThirdPersonCam.SetActive(false);
             ThirdPersonCanvas.SetActive(false);
             AimCam.SetActive(true);

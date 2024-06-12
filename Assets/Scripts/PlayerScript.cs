@@ -55,6 +55,7 @@ public class PlayerScript : MonoBehaviour
         //gravity
         velocity.y += gravity * Time.deltaTime;
         cC.Move(velocity * Time.deltaTime);
+        
 
         playerMove();
 
@@ -81,7 +82,7 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("IdleAim",false);
 
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
-            float angle =  Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity , turnCalmTime);
+            float angle =  Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity , 0f);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -94,6 +95,13 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("Walk",false);
             animator.SetBool("Running",false);
             animator.SetBool("AimWalk",false);
+
+            if (Input.GetButton("Fire2"))
+            {
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, 0f);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
         }
     }
 

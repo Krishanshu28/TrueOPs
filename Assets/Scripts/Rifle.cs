@@ -99,7 +99,7 @@ public class Rifle : MonoBehaviour
         RaycastHit hitinfo;
         if(Physics.Raycast(came.transform.position, came.transform.forward, out hitinfo, shootingRange))
         {
-            Debug.Log(hitinfo.transform.name);
+            //Debug.Log(hitinfo.transform.name);
 
             Objects objects = hitinfo.transform.GetComponent<Objects>();  
             Enemy enemy = hitinfo.transform.GetComponent<Enemy>();
@@ -131,7 +131,7 @@ public class Rifle : MonoBehaviour
         player.playerSpeed = 0f;
         player.playerSprint = 0f;
         setReloading = true;
-        Debug.Log("Reloading.. ");
+        //Debug.Log("Reloading.. ");
         animator.SetBool("Reloading", true);
         yield return new WaitForSeconds(reloadingTime);
         animator.SetBool("Reloading", false);

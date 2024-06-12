@@ -122,7 +122,7 @@ public class Enemy : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ShootingRaycastArea.transform.position, ShootingRaycastArea.transform.forward, out hit, shootingRadius))
             {
-                Debug.Log("Shooting" + hit.transform.name);
+                //Debug.Log("Shooting" + hit.transform.name);
 
                 PlayerScript playerBody = hit.transform.GetComponent<PlayerScript>();
                 
