@@ -9,6 +9,7 @@ public class EnemyDrone : MonoBehaviour
     private float enemyHealth = 150f;
     private float presentHealth;
     private float giveDamage = 3f;
+    public HealthBar healthBar;
 
 
     [Header("Enemy Drone things")]
@@ -50,6 +51,7 @@ public class EnemyDrone : MonoBehaviour
         presentHealth = enemyHealth;
         playerBody = GameObject.Find("Player").transform;
         enemyAgent = GetComponent<NavMeshAgent>();
+        healthBar.GivefullHealth(enemyHealth);
 
     }
 
@@ -154,6 +156,7 @@ public class EnemyDrone : MonoBehaviour
     public void enemyDroneHitDamage(float takeDamage)
     {
         presentHealth -= takeDamage;
+        healthBar.SetHealth(presentHealth);
 
         if (presentHealth <= 0)
         {

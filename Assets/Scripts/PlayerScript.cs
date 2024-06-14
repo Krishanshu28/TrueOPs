@@ -10,9 +10,9 @@ public class PlayerScript : MonoBehaviour
 
 
     [Header("Player Health Things")]
-    private float playerHealth = 700f;
+    private float playerHealth = 120;
     private float presentHealth;
-
+    public HealthBar healthBar;
 
     [Header("Player Script Cameras")]
     public Transform playerCamera;
@@ -40,6 +40,7 @@ public class PlayerScript : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         presentHealth = playerHealth;
+        healthBar.GivefullHealth(playerHealth);
     }
 
     // Update is called once per frame
@@ -153,6 +154,7 @@ public class PlayerScript : MonoBehaviour
     public void playerHitDamage(float takeDamage)
     {
         presentHealth -= takeDamage;
+        healthBar.SetHealth(presentHealth);
 
         if(presentHealth <= 0)
         {
