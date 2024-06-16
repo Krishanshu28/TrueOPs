@@ -95,6 +95,10 @@ public class Rifle : MonoBehaviour
             mag --;
         }
 
+        //updating UI
+        AmmoCount.occurrence.UpdateAmmoText(presentAmmunition);
+        AmmoCount.occurrence.UpdateMagText(mag);
+
         muzzleSpark.Play();
         RaycastHit hitinfo;
         if(Physics.Raycast(came.transform.position, came.transform.forward, out hitinfo, shootingRange))

@@ -102,6 +102,10 @@ public class PlayerScript : MonoBehaviour
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnCalmVelocity, 0f);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                //float targetAngle1 = Mathf.Atan2(direction.y, direction.z) * Mathf.Rad2Deg + playerCamera.eulerAngles.x;
+                //float angle1 = Mathf.SmoothDampAngle(transform.eulerAngles.x, targetAngle1, ref turnCalmVelocity, 0f);
+               //0 transform.rotation = Quaternion.Euler(angle1, 0f, 0f);
             }
         }
     }
