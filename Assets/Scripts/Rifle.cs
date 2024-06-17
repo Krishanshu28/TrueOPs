@@ -27,7 +27,9 @@ public class Rifle : MonoBehaviour
    public GameObject droneEffect;
     public GameObject goreEffect;
 
-    //[Header("Sounds and UI")]
+    [Header("Sounds and UI")]
+    [SerializeField] private GameObject ammoOutUI;
+    [SerializeField] private int timeToShowUI = 1;
 
     private void Awake() 
    {
@@ -49,6 +51,7 @@ public class Rifle : MonoBehaviour
         {
             animator.SetBool("Fire", true);
             animator.SetBool("Idle", false);
+            animator.SetBool("Reloading", false);
             nextTimeToShoot = Time.time + 1f/fireCharge;
             Shoot();
         }
@@ -70,7 +73,12 @@ public class Rifle : MonoBehaviour
             animator.SetBool("Walk", true);
             animator.SetBool("Reloading", false);
         }
-
+        
+        else if(Input.GetButton("Fire1"))
+        {
+            animator.SetBool("Fire", true);
+            animator.SetBool("Idle", false);
+        }
         else
         {
             animator.SetBool("Fire", false);
@@ -85,6 +93,7 @@ public class Rifle : MonoBehaviour
     {
         if(mag == 0)
         {
+            StartCoroutine(ShowAmmoOut());
             return;
         }
 
@@ -143,5 +152,12 @@ public class Rifle : MonoBehaviour
         player.playerSpeed = 2f;
         player.playerSprint = 3f;
         setReloading = false;
+    }
+
+    IEnumerator ShowAmmoOut()
+    {
+        ammoOutUI.SetActive(true);
+        yield return new WaitForSeconds(timeToShowUI);
+        ammoOutUI.SetActive(false);
     }
 }
