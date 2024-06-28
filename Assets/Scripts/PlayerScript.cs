@@ -13,6 +13,9 @@ public class PlayerScript : MonoBehaviour
     private float playerHealth = 120;
     private float presentHealth;
     public HealthBar healthBar;
+    public AudioClip playerHurtSound;
+    public AudioSource audioSource;
+
 
     [Header("Player Script Cameras")]
     public Transform playerCamera;
@@ -161,8 +164,9 @@ public class PlayerScript : MonoBehaviour
     {
         presentHealth -= takeDamage;
         healthBar.SetHealth(presentHealth);
+        audioSource.PlayOneShot(playerHurtSound);
 
-        if(presentHealth <= 0)
+        if (presentHealth <= 0)
         {
             PlayerDie();
         }
@@ -173,6 +177,6 @@ public class PlayerScript : MonoBehaviour
         endGameMenu.SetActive(true);
         deathCamera.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
-        Object.Destroy(gameObject,1.0f);
+        this.gameObject.SetActive(false);
     }
 }

@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
     public void OnPlayButton()
     {
         SceneManager.LoadScene("Mission");

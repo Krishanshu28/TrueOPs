@@ -12,6 +12,10 @@ public class Computer : MonoBehaviour
     [Header("Computer Assign Things")]
     public PlayerScript player;
 
+    [Header("Sounds")]
+    public AudioClip objectiveCompletedSound;
+    public AudioSource audioSource;
+
     [SerializeField] private GameObject computerUI;
     [SerializeField] private int showComputerUIFor = 5;
 
@@ -29,7 +33,9 @@ public class Computer : MonoBehaviour
                 StartCoroutine(ShowComputerUI());
                 lightsOn = false;
                 lights.intensity = 0;
+                ObjectivesComplaete.occurence.GetObjectivesDone(true, true, false, false);
                 //objective completed
+                audioSource.PlayOneShot(objectiveCompletedSound);
             }
         }
     }

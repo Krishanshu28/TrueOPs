@@ -8,6 +8,7 @@ public class Menus : MonoBehaviour
     [Header("All Menu's")]
     public GameObject pauseMenuUI;
     public GameObject endGameMenuUI;
+    public GameObject objectiveMenuUI;
 
     public static bool gameIsStopped = false;
 
@@ -20,12 +21,42 @@ public class Menus : MonoBehaviour
                 Resume();
                 Cursor.lockState = CursorLockMode.Locked;
             }
+            
             else
             {
                 Pause();
                 Cursor.lockState = CursorLockMode.None;
             }
+            
         }
+        else if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (gameIsStopped)
+            {
+                HideObjective();
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                ShowObjective();
+                Cursor.lockState= CursorLockMode.None;
+            }
+        }
+    }
+
+    public void ShowObjective()
+    {
+        objectiveMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        gameIsStopped = true;
+    }
+
+    public void HideObjective()
+    {
+        objectiveMenuUI.SetActive(false);
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
+        gameIsStopped = false;
     }
 
     public void Resume()

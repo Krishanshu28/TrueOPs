@@ -30,9 +30,13 @@ public class Rifle : MonoBehaviour
     [Header("Sounds and UI")]
     [SerializeField] private GameObject ammoOutUI;
     [SerializeField] private int timeToShowUI = 1;
+    public AudioClip shootingSound;
+    public AudioClip reloadingSound;
+    public AudioSource audioSource;
+    
 
     private void Awake() 
-   {
+   {        
         presentAmmunition = maximumAmmunition;
    }
 
@@ -109,6 +113,7 @@ public class Rifle : MonoBehaviour
         AmmoCount.occurrence.UpdateMagText(mag);
 
         muzzleSpark.Play();
+        audioSource.PlayOneShot(shootingSound);
         RaycastHit hitinfo;
         if(Physics.Raycast(came.transform.position, came.transform.forward, out hitinfo, shootingRange))
         {
@@ -144,7 +149,7 @@ public class Rifle : MonoBehaviour
         player.playerSpeed = 0f;
         player.playerSprint = 0f;
         setReloading = true;
-        //Debug.Log("Reloading.. ");
+        audioSource.PlayOneShot(reloadingSound);
         animator.SetBool("Reloading", true);
         yield return new WaitForSeconds(reloadingTime);
         animator.SetBool("Reloading", false);

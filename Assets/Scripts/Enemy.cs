@@ -25,7 +25,9 @@ public class Enemy : MonoBehaviour
     public float enemySpeed;
     float walkingPointRadius = 5;
 
-    //[Header("Sounds and UI")]
+    [Header("Sounds and UI")]
+    public AudioSource audioSource;
+    public AudioClip shootingSound;
 
     [Header("Enemy Shooting Var")]
     public float timebtwShoot;
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
    
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         presentHealth = enemyHealth;
         playerBody = GameObject.Find("Player").transform;
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -121,6 +124,7 @@ public class Enemy : MonoBehaviour
         if(!previouslyShoot)
         {
             muzzleSpark.Play();
+            audioSource.PlayOneShot(shootingSound);
             RaycastHit hit;
             if(Physics.Raycast(ShootingRaycastArea.transform.position, ShootingRaycastArea.transform.forward, out hit, shootingRadius))
             {
@@ -153,8 +157,11 @@ public class Enemy : MonoBehaviour
     {
         presentHealth -= takeDamage;
         healthBar.SetHealth(presentHealth);
+        //++ shoting and vision radius
+        visionRadius = 50;
+        shootingRadius = 20;
 
-        if(presentHealth <= 0)
+        if (presentHealth <= 0)
         {
             anim.SetBool("Walk", false);
             anim.SetBool("AimRun", false);

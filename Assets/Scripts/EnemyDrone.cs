@@ -25,7 +25,10 @@ public class EnemyDrone : MonoBehaviour
     public float enemySpeed;
     float walkingPointRadius = 5;
 
-    //[Header("Sounds and UI")]
+    [Header("Sounds and UI")]
+    public AudioSource audioSource;
+    public AudioClip shootingSound;
+    public AudioClip flameThrowerSound;
 
     [Header("Enemy Drone Shooting Var")]
     public float timebtwShoot;
@@ -125,6 +128,8 @@ public class EnemyDrone : MonoBehaviour
         {
             muzzleSpark.Play();
             muzzleFlame.Play();
+            audioSource.PlayOneShot(shootingSound);
+            audioSource.PlayOneShot(flameThrowerSound);
             RaycastHit hit;
             if (Physics.Raycast(ShootingRaycastArea.transform.position, ShootingRaycastArea.transform.forward, out hit, shootingRadius))
             {
@@ -157,6 +162,9 @@ public class EnemyDrone : MonoBehaviour
     {
         presentHealth -= takeDamage;
         healthBar.SetHealth(presentHealth);
+        //++ shoting and vision radius
+        visionRadius = 50;
+        shootingRadius = 20;
 
         if (presentHealth <= 0)
         {

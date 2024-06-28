@@ -14,6 +14,7 @@ public class GeneratorTurnOff : MonoBehaviour
     public PlayerScript player;
     public Animator animator;
     public AudioSource audioSource;
+    public AudioClip objectiveCompletedSound;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class GeneratorTurnOff : MonoBehaviour
             greenLight.SetActive(false);
             redLight.SetActive(true);
             audioSource.Stop();
+            ObjectivesComplaete.occurence.GetObjectivesDone(true, true, true, false);
+            audioSource.PlayOneShot(objectiveCompletedSound);
             //objective completed
         }
         else if(button == false)
